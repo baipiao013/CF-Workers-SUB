@@ -1,11 +1,8 @@
 name: Upstream Sync
 
-permissions:
-  contents: write
-
 on:
   schedule:
-    - cron: "0 0 * * *" # every day
+    - cron: "0 */2 * * *" # every day
   workflow_dispatch:
 
 jobs:
@@ -38,3 +35,12 @@ jobs:
           echo "[Error] 由于上游仓库的 workflow 文件变更，导致 GitHub 自动暂停了本次自动更新，你需要手动 Sync Fork 一次，详细教程请查看项目README.md "
           echo "[Error] Due to a change in the workflow file of the upstream repository, GitHub has automatically suspended the scheduled automatic update. You need to manually sync your fork. Please refer to the project README.md for instructions. "
           exit 1
+
+        # 删除旧的工作流运行记录
+      - name: 🎉 Delete old workflow run
+        uses: yxdz2020/delete-workflow-runs@v20250609
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 50
