@@ -2,7 +2,7 @@ name: Upstream Sync
 
 on:
   schedule:
-    - cron: "0 */2 * * *" # every day
+    - cron: "0 */3 * * *" # every day
   workflow_dispatch:
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
       # Step 2: run the sync action
       - name: Sync upstream changes
         id: sync
-        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        uses: yxdz2020/Fork-Sync-With-Upstream-action@v20250122
         with:
           upstream_sync_repo: cmliu/CF-Workers-SUB
           upstream_sync_branch: main
